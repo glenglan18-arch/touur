@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Tour Menoreh</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Konfigurasi Umum */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+            --warna-utama: #1E5631;
+            --warna-sekunder: #4CAF50;
+            --warna-tiga: #A4DE02;
+            --warna-latar: #F8FFF8;
+            --warna-teks: #2C3E50;
+            --warna-teks-muda: #7F8C8D;
+            background-color: var(--warna-latar);
+            color: var(--warna-teks);
+        }
+
+        /* Efek Scroll Navbar */
+        .navbar {
+            background-color: transparent;
+            transition: all 0.5s ease;
+            padding: 1rem 0;
+        }
+        .navbar.scrolled {
+            background-color: var(--warna-utama);
+            padding: 0.5rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white !important;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .nav-link {
+            color: white !important;
+            font-weight: 500;
+            margin-left: 1.2rem;
+            position: relative;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--warna-tiga);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Section Title */
+        .section-title {
+            color: var(--warna-utama);
+            font-weight: 600;
+            position: relative;
+            margin-bottom: 4rem;
+        }
+        .section-title::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--warna-sekunder);
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 3px;
+            background-color: var(--warna-tiga);
+            margin-left: 25px;
+        }
+
+        /* Jumbotron Hero */
+        .hero-section {
+            height: 100vh;
+            background: linear-gradient(rgba(30, 86, 49, 0.6), rgba(30, 86, 49, 0.4)), url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi5j3gWLGtahkRZixnULDj_wsWjazcjCOvO7O04qZY0O7SGnKdu_NdHgbZUOXRTYQPKUzqedIKsR1LpQCODKHrlDdECL_By57ZupREjhAYLVLFMUrd8aN_7h8qXvH-10eU4qRzD6rbAaJbS3Zq4DS_mAYiEE_B4eoEmYy6GDD4wMlOmqAO72VbvnxzP/s16000/The%20Last%20Jogja%20Project.jpg'); /* URL gambar yang diberikan */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 3px 6px rgba(0,0,0,0.3);
+            animation: fadeDown 1s ease;
+        }
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            animation: fadeUp 1s ease 0.3s both;
+        }
+        .btn-custom {
+            background-color: var(--warna-sekunder);
+            color: white;
+            font-weight: 500;
+            padding: 0.8rem 2.5rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            animation: fadeUp 1s ease 0.6s both;
+        }
+        .btn-custom:hover {
+            background-color: var(--warna-utama);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+            color: white;
+        }
+
+        /* Animasi */
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Section Beranda */
+        .about-img {
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        .about-img img {
+            transition: transform 0.5s ease;
+        }
+        .about-img:hover img {
+            transform: scale(1.05);
+        }
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(76, 175, 80, 0.1);
+            color: var(--warna-sekunder);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        /* Section Paket Wisata */
+        .package-section {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.05) 0%, rgba(30, 86, 49, 0.05) 100%);
+            padding: 5rem 0;
+            margin: 4rem 0;
+            border-radius: 20px;
+        }
+        .package-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            background-color: white;
+            height: 100%;
+            animation: zoomIn 0.8s ease both;
+        }
+        .package-card:nth-child(2) { animation-delay: 0.2s; }
+        .package-card:nth-child(3) { animation-delay: 0.4s; }
+        .package-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        .package-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        .package-img img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .package-card:hover .package-img img {
+            transform: scale(1.1);
+        }
+        .package-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--warna-tiga);
+            color: var(--warna-utama);
+            font-weight: 500;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        .package-price {
+            color: var(--warna-utama);
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        /* =========================
+   SECTION LAYANAN
+========================= */
+#layanan{
+    background: linear-gradient(135deg, rgba(76,175,80,0.05), rgba(30,86,49,0.08));
+    padding: 90px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+#layanan::before{
+    content:'';
+    position:absolute;
+    width:220px;
+    height:220px;
+    background: rgba(164,222,2,0.08);
+    border-radius:50%;
+    top:-60px;
+    left:-60px;
+}
+
+#layanan::after{
+    content:'';
+    position:absolute;
+    width:260px;
+    height:260px;
+    background: rgba(76,175,80,0.06);
+    border-radius:50%;
+    bottom:-80px;
+    right:-80px;
+}
+
+#layanan .section-title{
+    margin-bottom: 15px;
+}
+
+#layanan .text-muted{
+    max-width: 650px;
+    margin: auto;
+}
+
+/* Card layanan */
+#layanan .contact-card{
+    background: #ffffff;
+    border: none;
+    border-radius: 18px;
+    padding: 35px 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+    transition: all 0.35s ease;
+    position: relative;
+    z-index: 2;
+}
+
+#layanan .contact-card:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 18px 35px rgba(0,0,0,0.12);
+}
+
+/* Icon */
+#layanan .feature-icon{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg,#4CAF50,#1E5631);
+    color: #fff;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    box-shadow: 0 8px 20px rgba(76,175,80,0.25);
+    transition: 0.3s ease;
+}
+
+#layanan .contact-card:hover .feature-icon{
+    transform: rotate(10deg) scale(1.08);
+}
+
+/* Judul */
+#layanan h5{
+    margin-top: 18px;
+    margin-bottom: 12px;
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+/* Text */
+#layanan p{
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+/* Responsive */
+@media (max-width:768px){
+
+    #layanan{
+        padding: 70px 0;
+    }
+
+    #layanan .contact-card{
+        padding: 28px 20px;
+    }
+
+    #layanan .feature-icon{
+        width: 60px;
+        height: 60px;
+        font-size: 22px;
+    }
+
+    #layanan h5{
+        font-size: 1rem;
+    }
+
+}
+    
+        /* Accordion Tentang Kami */
+        .accordion-button {
+            background-color: rgba(30, 86, 49, 0.03);
+            color: var(--warna-utama);
+            font-weight: 500;
+            border-radius: 10px !important;
+            margin-bottom: 0.8rem;
+            border: none;
+        }
+        .accordion-button:not(.collapsed) {
+            background-color: var(--warna-utama);
+            color: white;
+        }
+        .accordion-button::after {
+            filter: invert(1);
+        }
+        .accordion-body {
+            background-color: white;
+            border-radius: 0 0 10px 10px;
+            margin-top: -0.8rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        /* Section Kenali Kami */
+.kenali {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(200, 0, 255, 0.4);
+  backdrop-filter: blur(5px);
+}
+
+.kenali h2 {
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, #ff00ff, #9400d3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 15px rgba(255,0,255,0.7);
+}
+
+.carousel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.carousel img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  display: none;
+  border-radius: 15px;
+}
+
+.carousel img.active {
+  display: block;
+  animation: fade 1s ease-in-out;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: white;
+  font-size: 24px;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.prev:hover, .next:hover {
+  background: rgba(255,0,255,0.7);
+}
+
+.prev { left: 15px; }
+.next { right: 15px; }
+
+    /* =========================
+   SECTION FAQ
+========================= */
+#faq{
+    padding: 90px 0;
+    background: #ffffff;
+    position: relative;
+    overflow: hidden;
+}
+
+#faq::before{
+    content: '';
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: rgba(76,175,80,0.05);
+    top: -80px;
+    right: -70px;
+}
+
+#faq::after{
+    content: '';
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: rgba(164,222,2,0.06);
+    bottom: -70px;
+    left: -70px;
+}
+
+#faq .section-title{
+    margin-bottom: 15px;
+}
+
+#faq .text-muted{
+    max-width: 650px;
+    margin: auto;
+}
+
+/* Accordion Box */
+#faq .accordion{
+    position: relative;
+    z-index: 2;
+}
+
+#faq .accordion-item{
+    border: none;
+    border-radius: 18px;
+    overflow: hidden;
+    margin-bottom: 18px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+}
+
+/* Header Button */
+#faq .accordion-button{
+    background: #ffffff;
+    color: #1E5631;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 20px 24px;
+    box-shadow: none;
+}
+
+#faq .accordion-button:not(.collapsed){
+    background: linear-gradient(135deg,#4CAF50,#1E5631);
+    color: #ffffff;
+}
+
+#faq .accordion-button:focus{
+    box-shadow: none;
+    border: none;
+}
+
+/* Icon panah */
+#faq .accordion-button::after{
+    filter: brightness(0.4);
+}
+
+#faq .accordion-button:not(.collapsed)::after{
+    filter: brightness(0) invert(1);
+}
+
+/* Body */
+#faq .accordion-body{
+    background: #ffffff;
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    padding: 20px 24px 24px;
+}
+
+/* Hover */
+#faq .accordion-item:hover{
+    transform: translateY(-3px);
+    transition: 0.3s ease;
+    box-shadow: 0 16px 30px rgba(0,0,0,0.08);
+}
+
+/* Responsive */
+@media (max-width:768px){
+
+    #faq{
+        padding: 70px 0;
+    }
+
+    #faq .accordion-button{
+        font-size: 0.95rem;
+        padding: 18px 18px;
+    }
+
+    #faq .accordion-body{
+        padding: 18px;
+        font-size: 0.92rem;
+    }
+
+}
+
+/* =========================
+   SECTION TESTIMONI
+========================= */
+#testimoni{
+    padding: 90px 0;
+    background: linear-gradient(135deg, rgba(76,175,80,0.04), rgba(30,86,49,0.06));
+    position: relative;
+    overflow: hidden;
+}
+
+#testimoni::before{
+    content:'';
+    position:absolute;
+    width:260px;
+    height:260px;
+    border-radius:50%;
+    background: rgba(164,222,2,0.07);
+    top:-90px;
+    left:-90px;
+}
+
+#testimoni::after{
+    content:'';
+    position:absolute;
+    width:240px;
+    height:240px;
+    border-radius:50%;
+    background: rgba(76,175,80,0.06);
+    bottom:-90px;
+    right:-90px;
+}
+
+/* Judul */
+#testimoni .section-title{
+    margin-bottom: 15px;
+}
+
+#testimoni .text-muted{
+    max-width: 650px;
+    margin: auto;
+}
+
+/* Card Testimoni */
+#testimoni .contact-card{
+    border: none;
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+    transition: all 0.35s ease;
+    position: relative;
+    z-index: 2;
+    text-align: left;
+}
+
+#testimoni .contact-card:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+}
+
+/* Bintang */
+#testimoni .text-warning i{
+    margin-right: 2px;
+    animation: starPulse 2s infinite;
+}
+
+@keyframes starPulse{
+    0%,100%{ transform: scale(1); }
+    50%{ transform: scale(1.1); }
+}
+
+/* Nama */
+#testimoni h6{
+    font-size: 1.05rem;
+}
+
+/* Lokasi */
+#testimoni small{
+    font-size: 0.85rem;
+}
+
+/* Animasi masuk */
+#testimoni .contact-card{
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUpTesti 0.8s ease forwards;
+}
+
+#testimoni .col-md-6:nth-child(1) .contact-card{ animation-delay: 0.1s; }
+#testimoni .col-md-6:nth-child(2) .contact-card{ animation-delay: 0.3s; }
+#testimoni .col-md-6:nth-child(3) .contact-card{ animation-delay: 0.5s; }
+
+@keyframes fadeUpTesti{
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width:768px){
+
+    #testimoni{
+        padding: 70px 0;
+    }
+
+    #testimoni .contact-card{
+        text-align: center;
+    }
+
+}
+
+        /* Section Kontak */
+        .contact-card {
+            background-color: white;
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+        .form-control {
+            border-radius: 10px;
+            border: 1px solid rgba(30, 86, 49, 0.2);
+            padding: 0.8rem 1rem;
+        }
+        .form-control:focus {
+            border-color: var(--warna-sekunder);
+            box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--warna-utama);
+            color: white;
+            padding: 4rem 0 2rem;
+            margin-top: 5rem;
+        }
+        .footer-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            transition: all 0.3s ease;
+        }
+        .footer-social a:hover {
+            background-color: var(--warna-tiga);
+            color: var(--warna-utama);
+            transform: rotate(15deg);
+        }
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Efek Hover Teks Footer */
+        .hover-text-warning:hover {
+            color: var(--warna-tiga) !important;
+        }
+
+        /* Responsif */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            .navbar-collapse {
+                background-color: var(--warna-utama);
+                padding: 1rem;
+                border-radius: 10px;
+                margin-top: 1rem;
+            }
+            .nav-link::after {
+                display: none;
+            }
+            .max-w-600 {
+                max-width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    </style>
+</head>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const images = document.querySelectorAll('.carousel img');
+  const prev = document.querySelector('.prev');
+  const next = document.querySelector('.next');
+  let index = 0;
+
+  function showImage(i) {
+    images.forEach(img => img.classList.remove('active'));
+    images[i].classList.add('active');
+  }
+
+  next.onclick = function() {
+    index = (index + 1) % images.length;
+    showImage(index);
+  };
+
+  prev.onclick = function() {
+    index = (index - 1 + images.length) % images.length;
+    showImage(index);
+  };
+
+});
+</script>
+<body>
+
+    <!-- SECTION HEADER -->
+    <header>
+        <!-- Komponen Bootstrap: Navbar -->
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <i class="fas fa-leaf me-2 text-warning"></i>Green Tour Menoreh
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#beranda">Beranda</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#paket">Paket Wisata</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#layanan">Layanan</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#faq">FAQ</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#testimoni">Testimoni</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#tentang">Tentang Kami</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#kontak">Kontak</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <div class="hero-section" id="beranda">
+            <div class="container">
+                <h1 class="hero-title">Jelajahi Keindahan Alam Indonesia</h1>
+                <p class="hero-subtitle">Paket wisata alam terpercaya dari UMKM lokal dengan pengalaman tak terlupakan, fokus pada kelestarian dan kesejahteraan masyarakat.</p>
+                <a href="#paket" class="btn btn-custom">Temukan Paket Impianmu</a>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- SECTION KONTEN -->
+    <main>
+        <!-- Bagian Beranda -->
+        <section class="py-10 py-md-12">
+            <div class="container">
+                <div class="text-center mb-8">
+                    <br><h2 class="section-title">Selamat Datang di Green Tour Menoreh</h2></br>
+                </div>
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6 about-img">
+                        <img src="https://cdn1.katadata.co.id/media/images/temp/2023/04/17/Gunung_Lanang_Kulonprogo-2023_04_17-14_48_45_6dfab461d4b5a3cf131fe8d7f5f90772.jpg" class="img-fluid" alt="Wisata Alam">
+                    </div>
+                    <div class="col-lg-6">
+                        <h3 class="fw-bold text-success mb-4" style="font-size: 1.8rem;">Wisata Alam yang Ramah Lingkungan & Berkelanjutan</h3>
+                        <p class="text-muted mb-4">Kami adalah UMKM yang berfokus pada penyediaan layanan wisata alam dengan memperhatikan kelestarian alam dan kesejahteraan masyarakat lokal. Setiap perjalanan yang kami sediakan dirancang untuk memberikan pengalaman mendalam serta kontribusi positif bagi daerah tujuan.</p>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-semibold">Jalur Aman & Terkelola</h5>
+                                <p class="text-sm text-muted mb-0">Semua jalur wisata kami melalui proses pemeriksaan dan pemeliharaan rutin untuk keamanan dan kelestarian alam.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-semibold">Pemandu Lokal Berpengalaman</h5>
+                                <p class="text-sm text-muted mb-0">Pemandu kami berasal dari masyarakat lokal yang memiliki pengetahuan mendalam tentang area wisata dan budaya setempat.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-semibold">Penginapan & Makanan Lokal</h5>
+                                <p class="text-sm text-muted mb-0">Kami bekerja sama dengan rumah tinggal dan penjual makanan lokal untuk mendukung ekonomi masyarakat sekitar.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-semibold">Program Konservasi Alam</h5>
+                                <p class="text-sm text-muted mb-0">Sebagian dari pendapatan kami dialokasikan untuk penanaman pohon, pembersihan area wisata, dan edukasi lingkungan.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bagian Paket Wisata -->
+        <section class="package-section" id="paket">
+            <div class="container">
+                <div class="text-center mb-8">
+                    <h2 class="section-title">Paket Wisata Kami</h2>
+                    <p class="text-muted max-w-600">Pilih paket yang sesuai dengan minat dan kebutuhan Anda, setiap paket disesuaikan untuk memberikan pengalaman terbaik.</p>
+                </div>
+                <div class="row g-4 g-lg-5">
+                    <!-- Card 1 -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="package-card position-relative">
+                            <div class="package-badge">Populer</div>
+                            <div class="package-img">
+                                <img src="https://tse1.mm.bing.net/th/id/OIP.kE9owGikI6L1oPSRrLkqPQHaE5?pid=Api&P=0&h=220" alt="Paket Alam">
+                            </div>
+                            <div class="card-body p-4">
+                                <h5 class="card-title fw-bold text-success mb-2">Paket Alam</h5>
+                                <h6 class="card-subtitle text-muted mb-3">3 Hari 2 Malam</h6>
+                                <ul class="list-unstyled mb-3">
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Trekking ke alam tersembunyi</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Observasi satwa dan tumbuhan langka</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Kemah di tengah hutan</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Edukasi konservasi hutan</li>
+                                </ul>
+                                <p class="package-price mb-3">Rp 1.000.000/orang</p>
+                                <a href="#kontak" class="btn btn-success w-100 rounded-pill">Pesan Sekarang</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="package-card position-relative">
+                            <div class="package-badge">Premium</div>
+                            <div class="package-img">
+                                <img src="https://tse4.mm.bing.net/th/id/OIP.hIFHoil_vbVc1cFpTNXuSQHaE7?pid=Api&P=0&h=220" alt="Paket Danau & Pegunungan">
+                            </div>
+                            <div class="card-body p-4">
+                                <h5 class="card-title fw-bold text-success mb-2">Paket Danau & Pegunungan</h5>
+                                <h6 class="card-subtitle text-muted mb-3">4 Hari 3 Malam</h6>
+                                <ul class="list-unstyled mb-3">
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Pendakian gunung dengan pemandangan spektakuler</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Kemah di tepi danau alami</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Makan malam dengan pemandangan bintang</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Belajar budaya daerah lokal</li>
+                                </ul>
+                                <p class="package-price mb-3">Rp 1.800.000/orang</p>
+                                <a href="#kontak" class="btn btn-success w-100 rounded-pill">Pesan Sekarang</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="col-md-6 col-lg-4 mx-auto">
+                        <div class="package-card position-relative">
+                            <div class="package-badge">Terjangkau</div>
+                            <div class="package-img">
+                                <img src="https://tse4.mm.bing.net/th/id/OIP.OjIYcg73wrfKAt6yepV6cAHaEK?pid=Api&P=0&h=220" alt="Paket Ekowisata">
+                            </div>
+                            <div class="card-body p-4">
+                                <h5 class="card-title fw-bold text-success mb-2">Paket Ekowisata</h5>
+                                <h6 class="card-subtitle text-muted mb-3">2 Hari 1 Malam</h6>
+                                <ul class="list-unstyled mb-3">
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Menjelajah ekowisata alam</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Jelajahi air terjun tersembunyi</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Makanan khas lokal </li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Pusat Oleh-oleh Bukit Menoreh</li>
+                                </ul>
+                                <p class="package-price mb-3">Rp 700.000/orang</p>
+                                <a href="#kontak" class="btn btn-success w-100 rounded-pill">Pesan Sekarang</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION LAYANAN -->
+<section id="layanan" class="py-10 py-md-12 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Layanan Kami</h2>
+            <p class="text-muted max-w-600">
+                Kami menyediakan layanan wisata profesional dengan konsep ramah lingkungan,
+                nyaman, aman, dan berkesan untuk setiap perjalanan Anda.
+            </p>
+        </div>
+
+        <div class="row g-4">
+
+            <!-- Layanan 1 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="contact-card p-4 text-center h-100">
+                    <div class="feature-icon mx-auto mb-3">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h5 class="fw-bold text-success">Tour Guide Profesional</h5>
+                    <p class="text-muted mb-0">
+                        Pemandu wisata berpengalaman yang siap menemani perjalanan Anda
+                        dengan pelayanan ramah dan informatif.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Layanan 2 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="contact-card p-4 text-center h-100">
+                    <div class="feature-icon mx-auto mb-3">
+                        <i class="fas fa-bus"></i>
+                    </div>
+                    <h5 class="fw-bold text-success">Transportasi Nyaman</h5>
+                    <p class="text-muted mb-0">
+                        Armada bersih, nyaman, dan aman untuk perjalanan wisata
+                        bersama keluarga maupun rombongan.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Layanan 3 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="contact-card p-4 text-center h-100">
+                    <div class="feature-icon mx-auto mb-3">
+                        <i class="fas fa-hotel"></i>
+                    </div>
+                    <h5 class="fw-bold text-success">Booking Penginapan</h5>
+                    <p class="text-muted mb-0">
+                        Membantu pemesanan homestay, villa, maupun hotel terbaik
+                        sesuai kebutuhan wisata Anda.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Layanan 4 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="contact-card p-4 text-center h-100">
+                    <div class="feature-icon mx-auto mb-3">
+                        <i class="fas fa-camera-retro"></i>
+                    </div>
+                    <h5 class="fw-bold text-success">Dokumentasi Wisata</h5>
+                    <p class="text-muted mb-0">
+                        Abadikan momen perjalanan Anda dengan layanan foto dan video
+                        berkualitas profesional.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Layanan 5 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="contact-card p-4 text-center h-100">
+                    <div class="feature-icon mx-auto mb-3">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h5 class="fw-bold text-success">Kuliner Lokal</h5>
+                    <p class="text-muted mb-0">
+                        Menikmati makanan khas daerah terbaik dari UMKM lokal
+                        yang higienis dan lezat.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Layanan 6 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="contact-card p-4 text-center h-100">
+                    <div class="feature-icon mx-auto mb-3">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h5 class="fw-bold text-success">Customer Support 24 Jam</h5>
+                    <p class="text-muted mb-0">
+                        Tim kami siap membantu Anda kapan saja untuk kebutuhan
+                        informasi maupun pemesanan wisata.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+        <!-- Bagian Tentang Kami -->
+        <section id="tentang" class="py-10 py-md-12">
+            <div class="container">
+                <div class="text-center mb-8">
+                    <br>
+                        <p>
+                            <h2 class="section-title">Tentang Kami</h2>
+                        </p>
+                    </br
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center mb-6">
+                        <p class="text-muted">Green Tour Menoreh berdiri sejak tahun 2015 sebagai UMKM lokal di Yogyakarta yang bergerak di bidang pariwisata alam. Kami memiliki misi untuk mempromosikan keindahan alam Indonesia sekaligus menjaga kelestariannya melalui program wisata yang bertanggung jawab.</p>
+                        <p class="text-muted mt-3">Semua pendapatan kami sebagian digunakan untuk program konservasi alam dan pembangunan fasilitas masyarakat lokal di sekitar area wisata.</p>
+                    </div>
+                    
+                    <!-- Komponen Bootstrap: Accordion -->
+                    <div class="col-lg-10">
+                        <div class="accordion" id="accordionTentang">
+                            <div class="accordion-item mb-3">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSatu">
+                                        <i class="fas fa-eye me-2"></i>Visi Kami
+                                    </button>
+                                </h2>
+                                <div id="collapseSatu" class="accordion-collapse collapse show" data-bs-parent="#accordionTentang">
+                                    <div class="accordion-body">
+                                        Menjadi penyedia layanan wisata alam terdepan yang mengutamakan kelestarian lingkungan dan kesejahteraan masyarakat lokal, serta menjadi contoh bagi pengembangan pariwisata berkelanjutan di Indonesia.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item mb-3">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDua">
+                                        <i class="fas fa-bullseye me-2"></i>Misi Kami
+                                    </button>
+                                </h2>
+                                <div id="collapseDua" class="accordion-collapse collapse" data-bs-parent="#accordionTentang">
+                                    <div class="accordion-body text-start">
+                                        <ul class="list-unstyled">
+                                            <li class="mb-2"><i class="fas fa-leaf text-success me-2"></i>Menyediakan pengalaman wisata alam yang tak terlupakan dan edukatif</li>
+                                            <li class="mb-2"><i class="fas fa-leaf text-success me-2"></i>Melaksanakan program konservasi dan edukasi lingkungan secara berkelanjutan</li>
+                                            <li class="mb-2"><i class="fas fa-leaf text-success me-2"></i>Meningkatkan pendapatan dan keterampilan masyarakat lokal melalui pariwisata</li>
+                                            <li class="mb-2"><i class="fas fa-leaf text-success me-2"></i>Menjaga keaslian dan kelestarian sumber daya alam serta budaya lokal</li>
+                                            <li class="mb-2"><i class="fas fa-leaf text-success me-2"></i>Membangun kemitraan yang saling menguntungkan dengan berbagai pihak terkait</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTiga">
+                                        <i class="fas fa-certificate me-2"></i>Sertifikasi & Pengakuan
+                                    </button>
+                                </h2>
+                                <div id="collapseTiga" class="accordion-collapse collapse" data-bs-parent="#accordionTentang">
+                                    <div class="accordion-body text-start">
+                                        <ul class="list-unstyled">
+                                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Terdaftar sebagai UMKM resmi di Dinas Koperasi dan UMKM Provinsi DIY</li>
+                                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Memperoleh sertifikasi <b>Wisata Bertanggung Jawab</b> dari Kementerian Pariwisata dan Ekonomi Kreatif RI</li>
+                                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Penghargaan <b>Best Local Tour Operator</b> tahun 2017 dari Forum Pariwisata Lokal Indonesia</li>
+                                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Terbentuknya program kemitraan dengan Komunitas Konservasi Alam Indonesia</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bagian Galeri Mini -->
+
+                    <section class="py-8 bg-light">
+            <div class="container">
+                <div class="text-center mb-5">
+    <br>
+        <p>
+            <h2 class="fw-bold text-success">Kenali Lebih Dekat Destinasi Kami</h2>
+        </p>
+    </br>
+        <div class="carousel">
+            <img src="https://www.alodiatour.com/wp-content/uploads/2018/11/Rute-menuju-Kebun-Teh-Nglinggo.jpg" class="active" alt="Kegiatan 1">
+            <img src="https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/222/2024/07/29/WhatsApp-Image-2024-07-29-at-114948-199577286.jpeg" alt="Kegiatan 2">
+            <img src="https://garasijogja.com/wp-content/uploads/2017/05/@wulanproboo.jpg" alt="Kegiatan 3">
+            <img src="https://i.ytimg.com/vi/mTi8KwiHZyg/sddefault.jpg" alt="Kegiatan 4">
+
+
+            <button class="prev">&#10094;</button>
+            <button class="next">&#10095;</button>
+        </div>
+</div>
+</section>
+            </div>
+        </section>
+
+<!-- SECTION FAQ -->
+<section id="faq" class="py-10 py-md-12">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Pertanyaan Umum</h2>
+            <p class="text-muted max-w-600">
+                Temukan jawaban dari pertanyaan yang sering diajukan pelanggan kami.
+            </p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+
+                <div class="accordion" id="accordionFaq">
+
+                    <!-- FAQ 1 -->
+                    <div class="accordion-item mb-3 border-0 shadow-sm rounded-4 overflow-hidden">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                Bagaimana cara memesan paket wisata?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#accordionFaq">
+                            <div class="accordion-body">
+                                Anda dapat memesan melalui form kontak di website, WhatsApp, atau menghubungi admin kami secara langsung.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="accordion-item mb-3 border-0 shadow-sm rounded-4 overflow-hidden">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                Apakah harga paket sudah termasuk transportasi?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#accordionFaq">
+                            <div class="accordion-body">
+                                Beberapa paket sudah termasuk transportasi. Detail fasilitas bisa dilihat pada masing-masing paket wisata.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="accordion-item mb-3 border-0 shadow-sm rounded-4 overflow-hidden">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                Apakah bisa request paket custom?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#accordionFaq">
+                            <div class="accordion-body">
+                                Tentu bisa. Kami melayani paket custom sesuai kebutuhan, jumlah peserta, dan tujuan wisata Anda.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 4 -->
+                    <div class="accordion-item mb-3 border-0 shadow-sm rounded-4 overflow-hidden">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                Bagaimana sistem pembayaran?
+                            </button>
+                        </h2>
+                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#accordionFaq">
+                            <div class="accordion-body">
+                                Pembayaran dapat dilakukan melalui transfer bank atau pembayaran langsung sesuai kesepakatan admin.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 5 -->
+                    <div class="accordion-item border-0 shadow-sm rounded-4 overflow-hidden">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                Apakah tersedia tour guide?
+                            </button>
+                        </h2>
+                        <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#accordionFaq">
+                            <div class="accordion-body">
+                                Ya, kami menyediakan tour guide profesional dan ramah untuk menemani perjalanan Anda.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION TESTIMONI -->
+<section id="testimoni" class="py-10 py-md-12 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Testimoni Pelanggan</h2>
+            <p class="text-muted max-w-600">
+                Kepuasan pelanggan adalah prioritas kami. Berikut pengalaman mereka
+                setelah menggunakan layanan Green Tour Menoreh.
+            </p>
+        </div>
+
+        <div class="row g-4">
+
+            <!-- Testimoni 1 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="contact-card p-4 h-100">
+                    <div class="mb-3 text-warning fs-5">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-muted mb-4">
+                        “Pelayanan sangat ramah dan profesional. Perjalanan jadi nyaman
+                        dan menyenangkan bersama keluarga.”
+                    </p>
+                    <h6 class="fw-bold text-success mb-1">Andi Pratama</h6>
+                    <small class="text-muted">Yogyakarta</small>
+                </div>
+            </div>
+
+            <!-- Testimoni 2 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="contact-card p-4 h-100">
+                    <div class="mb-3 text-warning fs-5">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-muted mb-4">
+                        “Destinasi wisata keren, guide berpengalaman, dan harga paket
+                        sangat worth it. Recommended banget!”
+                    </p>
+                    <h6 class="fw-bold text-success mb-1">Sinta Lestari</h6>
+                    <small class="text-muted">Magelang</small>
+                </div>
+            </div>
+
+            <!-- Testimoni 3 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="contact-card p-4 h-100">
+                    <div class="mb-3 text-warning fs-5">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-muted mb-4">
+                        “Admin fast respon, proses booking mudah, dan seluruh trip
+                        berjalan lancar tanpa kendala.”
+                    </p>
+                    <h6 class="fw-bold text-success mb-1">Rizky Maulana</h6>
+                    <small class="text-muted">Purworejo</small>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+        <!-- Bagian Kontak -->
+        <section id="kontak" class="py-10 py-md-12">
+            <div class="container">
+                <div class="text-center mb-8">
+                    <br>
+                        <p><h2 class="section-title">Hubungi Kami</h2></p>
+                    </br>
+                    <p class="text-muted">Hubungi kami untuk informasi lebih lanjut atau pemesanan paket wisata</p>
+                </div>
+                <div class="row g-5">
+                    <div class="col-md-6">
+                        <div class="contact-card p-5 h-100">
+                            <h5 class="fw-bold text-success mb-4"><i class="fas fa-info-circle me-2"></i>Informasi Kontak</h5>
+                            <div class="d-flex align-items-start mb-4">
+                                <div class="feature-icon me-3 mt-1">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-semibold">Alamat Kami</h6>
+                                    <p class="text-muted mb-0">Jl. Resi Subali, Sabrangkidul, Purwosari, Girimulyo, Kabupaten Kulon Progo, Daerah Istimewa Yogyakarta 55674</p></div>
+                            </div>
+                            <div class="d-flex align-items-start mb-4">
+                                <div class="feature-icon me-3 mt-1">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-semibold">Nomor Telepon</h6>
+                                    <p class="text-muted mb-0">+62 881-2908-695 (WhatsApp/Telp)</p>
+                                    <p class="text-muted mb-0">+62 851-4834-6962 (Hotline 24 Jam)</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-start mb-4">
+                                <div class="feature-icon me-3 mt-1">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-semibold">Email Kami</h6>
+                                    <p class="text-muted mb-0">bukitmenorehtour@greentour.id (Umum)</p>
+                                    <p class="text-muted mb-0">greentourmenoreh@greentour.id (Pemesanan)</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-start mb-4">
+                                <div class="feature-icon me-3 mt-1">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-semibold">Jam Operasional</h6>
+                                    <p class="text-muted mb-0">Senin - Jum'at: 08.00 WIB - 17.00 WIB</p>
+                                    <p class="text-muted mb-0">Sabtu - Minggu & Hari Libur: 08.00 WIB - 20.00 WIB</p>
+                                </div>
+                            </div>
+                            <div class="mt-5">
+                                <h6 class="fw-semibold mb-3">Ikuti Kami di Media Sosial</h6>
+                                <div class="footer-social">
+                                    <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                                    <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+                                    <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <!-- Komponen Bootstrap: Form -->
+                        <div class="contact-card p-5 h-100">
+                            <h5 class="fw-bold text-success mb-4"><i class="fas fa-message me-2"></i>Kirim Pesan</h5>
+                            <form>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="nama" class="form-label fw-semibold">Nama Lengkap</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light"><i class="fas fa-user text-success"></i></span>
+                                            <input type="text" class="form-control" id="nama" placeholder="Masukkan nama Anda" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label fw-semibold">Email Aktif</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light"><i class="fas fa-envelope text-success"></i></span>
+                                            <input type="email" class="form-control" id="email" placeholder="Masukkan email Anda" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="telepon" class="form-label fw-semibold">Nomor Telepon</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light"><i class="fas fa-phone text-success"></i></span>
+                                            <input type="tel" class="form-control" id="telepon" placeholder="Masukkan nomor Anda" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="paket" class="form-label fw-semibold">Pilihan Paket Wisata</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light"><i class="fas fa-map-marker-alt text-success"></i></span>
+                                            <select class="form-select" id="paket" required>
+                                                <option value="">Pilih Paket Wisata</option>
+                                                <option value="hutan">Paket Hutan Tropis</option>
+                                                <option value="danau">Paket Danau & Pegunungan</option>
+                                                <option value="pantai">Paket Pantai Alam</option>
+                                                <option value="kustom">Paket Kustom (Request Khusus)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="tanggal" class="form-label fw-semibold">Tanggal Rencana Perjalanan</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light"><i class="fas fa-calendar-alt text-success"></i></span>
+                                            <input type="date" class="form-control" id="tanggal" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="pesan" class="form-label fw-semibold">Pesan atau Pertanyaan</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light align-items-start"><i class="fas fa-comment text-success"></i></span>
+                                            <textarea class="form-control" id="pesan" rows="4" placeholder="Masukkan pesan atau pertanyaan Anda (misal: jumlah peserta, kebutuhan khusus, dll.)" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="privasi" required>
+                                            <label class="form-check-label text-muted" for="privasi">
+                                                Saya menyetujui syarat dan ketentuan serta kebijakan privasi yang berlaku di Green Escape
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-success w-100 rounded-pill py-2">
+                                            <i class="fas fa-paper-plane me-2"></i>Kirim Pesan
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- SECTION FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <div class="footer-brand">
+                        <i class="fas fa-leaf me-2 text-warning"></i>Green Tour Menoreh
+                    </div>
+                    <p class="text-light mb-4">Wisata Alam yang berkomitmen pada kelestarian alam dan kesejahteraan masyarakat lokal. Bersama kita jaga alam dan tingkatkan ekonomi masyarakat.</p>
+                    <div class="d-flex align-items-center text-light">
+                        <i class="fas fa-award me-2"></i>
+                        <p class="mb-0">Terpercaya Sejak 2016</p>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <h5 class="fw-semibold mb-3">Menu Cepat</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#beranda" class="text-light text-decoration-none hover-text-warning"><i class="fas fa-angle-right me-2"></i>Beranda</a></li>
+                        <li class="mb-2"><a href="#paket" class="text-light text-decoration-none hover-text-warning"><i class="fas fa-angle-right me-2"></i>Paket Wisata</a></li>
+                        <li class="mb-2"><a href="#tentang" class="text-light text-decoration-none hover-text-warning"><i class="fas fa-angle-right me-2"></i>Tentang Kami</a></li>
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none hover-text-warning"><i class="fas fa-angle-right me-2"></i>Layanan</a></li>
+                        <li class="mb-2"><a href="#kontak" class="text-light text-decoration-none hover-text-warning"><i class="fas fa-angle-right me-2"></i>Kontak</a></li>
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none hover-text-warning"><i class="fas fa-angle-right me-2"></i>Galeri Foto</a></li>
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none hover-text-warning"><i class="fas fa-angle-right me-2"></i>Testimoni Pelanggan</a></li>
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none hover-text-warning"><i class="fas fa-angle-right me-2"></i>FAQ</a></li>
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none hover-text-warning"><i class="fas fa-angle-right me-2"></i>Hubungi Kami</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h5 class="fw-semibold mb-3">Informasi Berguna</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none hover-text-warning"><i class="fas fa-info-circle me-2"></i>Syarat & Ketentuan</a></li>
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none hover-text-warning"><i class="fas fa-shield-alt me-2"></i>Kebijakan Privasi</a></li>
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none hover-text-warning"><i class="fas fa-question-circle me-2"></i>FAQ</a></li>
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none hover-text-warning"><i class="fas fa-map-signs me-2"></i>Petunjuk Akses</a></li>
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none hover-text-warning"><i class="fas fa-list-alt me-2"></i>Persiapan Perjalanan</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h5 class="fw-semibold mb-3">Kontak Cepat</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="https://wa.me/628812908695" target="_blank" class="text-light text-decoration-none"><i class="fab fa-whatsapp me-2"></i>WhatsApp</a></li>
+                        <li class="mb-2"><a href="ariefgleensio@gmail.com" class="text-light text-decoration-none"><i class="fas fa-envelope me-2"></i>Email</a></li>
+                        <li class="mb-2"><a href="https://www.instagram.com/arf_glennsi?igsh=NGMwcDc0bmNpbms0" target="_blank" class="text-light text-decoration-none"><i class="fab fa-instagram me-2"></i>Instagram</a></li>
+                        <li class="mb-2"><a href="https://www.facebook.com/share/1AeRpsCiW4/" target="_blank" class="text-light text-decoration-none"><i class="fab fa-facebook me-2"></i>Facebook</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright text-center">
+                <p class="mb-0">© 2026 Green Tour Menoreh. Semua Hak Dilindungi.</p>
+                <p class="mb-0 mt-2 small">Dinas Pariwisata Provinsi DIY | Nomor Registrasi : 2411/DIY/2016</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Bootstrap JS & Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script>
+        // Perbaikan: Efek Scroll Navbar
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Perbaikan: Smooth scroll untuk navigasi
+        document.querySelectorAll('.nav-link, .footer a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Perbaikan: Animasi Scroll untuk Elemen
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Set animasi awal untuk section
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = "0";
+            section.style.transform = "translateY(30px)";
+            section.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+            observer.observe(section);
+        });
+
+        // Perbaikan: Toggler Navbar pada Mobile
+        const navbarToggler = document.querySelector('.navbar-toggler');
+        const navbarCollapse = document.querySelector('.navbar-collapse');
+
+        navbarToggler.addEventListener('click', function() {
+            if(navbarCollapse.classList.contains('show')) {
+                navbarToggler.classList.remove('active');
+            } else {
+                navbarToggler.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
